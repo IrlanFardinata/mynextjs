@@ -70,9 +70,9 @@ const Blogs = ({datalist}) =>{
                     {
                         datalistserve && datalistserve.map((list, index) =>{
                             return(
-                                <tr style={{border: '1px solid #ddd'}}>
+                                <tr key={index} style={{border: '1px solid #ddd'}}>
                                     <td><a>{index + 1}</a></td>
-                                    <td key={index} style={{border: '1px solid #ddd', height:'30px'}}>
+                                    <td style={{border: '1px solid #ddd', height:'30px'}}>
                                         <Link href={`/blogs/${list.id}`}>
                                             <a>{list.title}</a>
                                         </Link>
@@ -106,9 +106,9 @@ const Blogs = ({datalist}) =>{
                     {
                         blogs && blogs.map((data, index) =>{
                             return(
-                                <tr style={{border: '1px solid #ddd'}}>
+                                <tr key={index} style={{border: '1px solid #ddd'}}>
                                     <td><a>{index + 1}</a></td>
-                                    <td  key={index} style={{border: '1px solid #ddd', height:'30px' }}>
+                                    <td style={{border: '1px solid #ddd', height:'30px' }}>
                                         <Link href={`/blogs/${data.id}`}>
                                             <a>{data.title}</a>
                                         </Link>

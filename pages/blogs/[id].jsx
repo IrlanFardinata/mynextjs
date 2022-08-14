@@ -24,14 +24,17 @@ const BlogDetail = ({data}) =>{
                     detail && detail.map((data, index) => {
                         return(
                             <>
-                                <h4>{data.title}</h4>
-                                <p>{data.body}</p>
-                                <br/>
-                                <button>
-                                    <Link href={`/blogs/`}>
-                                        <a>Back</a>
-                                    </Link>
-                                </button>
+                                <div key={index}>
+                                    <h4>{data.title}</h4>
+                                    <p>{data.body}</p>
+                                    <br/>
+                                    <button>
+                                        <Link href={`/blogs/`}>
+                                            <a>Back</a>
+                                        </Link>
+                                    </button>
+                                </div>
+
                             </>
                         )
                     })

@@ -4,10 +4,8 @@ import Link from 'next/link';
 
 const BlogDetail = ({data}) =>{
 
-    console.log(data.title)
     const [detail, setDetail] = useState();
     const {id} = useRouter().query;
-    console.log({id});
 
     useEffect(() =>{
         ( async () =>{

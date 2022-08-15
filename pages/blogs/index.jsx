@@ -29,18 +29,20 @@ const Blogs = ({datalist}) =>{
         }
     }
 
-    const handleUpdate = (idBlog) =>{
-        let getBlogID = blogs.find(({id}) =>  id == idBlog );
-
+    const handleUpdate = async (idBlog) =>{
+        let getBlogID = await blogs.find(({id}) =>  id == idBlog );
         let title = prompt('Title :', getBlogID.title);
         let body = prompt('Body :', getBlogID.body);
 
         let Executed = confirm('ingin menyimpan data yang sudah diubah??');
         if(Executed == true){
-            const newData = [{'userId': getBlogID.userId, 'id':getBlogID.id , 'title' : title, 'body' : body}]
-            const currentObj = {...blogs, ...newData};
-            console.log(currentObj)
-
+            await blogs && blogs.map((x, index) =>{
+                if(x.id == idBlog) {
+                    blogs[index] = {...x, title: title, body : body}
+                }
+            })
+            setBlog(blogs);
+            setListserve(blogs);
         }
     }
 
@@ -52,7 +54,6 @@ const Blogs = ({datalist}) =>{
             setBlog(newblog);
             setListserve(newlist);
         }
-       
     }
     return(
         <>  

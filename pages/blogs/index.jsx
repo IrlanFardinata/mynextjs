@@ -25,7 +25,6 @@ const Blogs = ({datalist}) =>{
             let newServerInsert = datalistserve.concat(newData); 
             setBlog(newBlogInsert);
             setListserve(newServerInsert);
-
         }
     }
 
@@ -35,14 +34,24 @@ const Blogs = ({datalist}) =>{
         let body = prompt('Body :', getBlogID.body);
 
         let Executed = confirm('ingin menyimpan data yang sudah diubah??');
-        if(Executed == true){
-            await blogs && blogs.map((x, index) =>{
-                if(x.id == idBlog) {
-                    blogs[index] = {...x, title: title, body : body}
-                }
-            })
-            setBlog(blogs);
-            setListserve(blogs);
+        if(Executed){
+
+        const newBlogs = [...blogs]
+
+        const blogsByid = newBlogs.findIndex((b => b.id == idBlog));
+        newBlogs[blogsByid].title = title
+        newBlogs[blogsByid].body = body
+
+            // await blogs && blogs.map((x, index) =>{
+            //     if(x.id === idBlog) {
+            //         blogs[index] = {...x, title: title, body : body}
+            //     }
+            // })
+            //console.log(blogs)
+
+
+            setBlog(newBlogs);
+            setListserve(newBlogs);
         }
     }
 

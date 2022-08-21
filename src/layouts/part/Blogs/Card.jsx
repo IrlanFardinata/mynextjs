@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import FormatRupiah from '../../../helpers/FormatRupiah'
+// import FormatRupiah from '../../../helpers/FormatRupiah'
 const Card = (props) => {
     let harga = 20000;
     const HaCndleDelete = (e) =>{
@@ -17,7 +17,7 @@ const Card = (props) => {
                     <div className="w-full font-bold text-xl text-gray-800 px-6">
                         {props.title}
                     </div>
-                    <p className="text-black">{FormatRupiah(harga)}</p>
+                    {/* <p className="text-black">{FormatRupiah(harga)}</p> */}
                     <p className="text-gray-800 text-base px-6 mb-5">
                         {props.body}
                     </p>

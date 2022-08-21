@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Layout from '@/layouts/MainLayout';
-import Card from '@/layouts/part/Blogs/card';
+import Card from '@/layouts/part/Blogs/Card';
 
 const Blogs = ({datalist}) =>{
     const [blogs, setBlog] = useState([]);

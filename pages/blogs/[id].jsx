@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
+import Layouts from '@/layouts/MainLayout';
 
 const BlogDetail = ({data}) =>{
 
@@ -18,37 +19,32 @@ const BlogDetail = ({data}) =>{
     },[])
     return(
         <>
-            <div>
-                <h2>Clientside Rendering</h2>
-                {
-                    detail && detail.map((data, index) => {
-                        return(
-                            <>
-                                <div key={index}>
-                                    <h4>{data.title}</h4>
-                                    <p>{data.body}</p>
-                                    <br/>
-                                    <button>
-                                        <Link href={`/blogs/`}>
-                                            <a>Back</a>
-                                        </Link>
-                                    </button>
-                                </div>
-
-                            </>
-                        )
-                    })
-                }
-
-            </div>
-            <br/>
-            <br/>
-            <div>
-                <h2>Serverside Rendering</h2>
-                <h5>{data.title}</h5>
-                <p>{data.body}</p>
-
-            </div>
+            <Layouts>
+                <div className="w-full md:w-1/3 p-6 flex flex-col flex-grow flex-shrink">
+                    <div className="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
+                        <a href="#" className="flex flex-wrap no-underline hover:no-underline">
+                            <p className="w-full text-gray-600 text-xs md:text-sm px-6"></p>
+                            <div className="w-full font-bold text-xl text-gray-800 px-6"></div>
+                            <p className="text-gray-800 text-base px-6 mb-5"></p>
+                        </a>
+                    </div>
+                    <div className="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
+                        <div className="flex items-center justify-around">
+                            <Link href={`/blogs/`}>
+                                <a className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                    Detail
+                                </a>
+                            </Link>
+                            <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                    Edit
+                            </button>
+                            <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none           focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+                                    Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </Layouts>
         </>
     )
 }

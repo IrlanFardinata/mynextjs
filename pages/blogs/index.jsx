@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Layout from '@/layouts/MainLayout';
+import Card from '@/layouts/part/Blogs/card';
+
 const Blogs = ({datalist}) =>{
     const [blogs, setBlog] = useState([]);
-    const [datalistserve, setListserve] = useState(datalist);
+    const jumlah = blogs.length; 
 
     useEffect(() =>{
         ( async () =>{
@@ -22,9 +25,7 @@ const Blogs = ({datalist}) =>{
         if(Executed == true){
             const newData = [{'userId': 11, 'id':blogs.length +1 , 'title' : title, 'body' : body}]
             let newBlogInsert = blogs.concat(newData); 
-            let newServerInsert = datalistserve.concat(newData); 
             setBlog(newBlogInsert);
-            setListserve(newServerInsert);
         }
     }
 
@@ -37,114 +38,46 @@ const Blogs = ({datalist}) =>{
         if(Executed){
 
         const newBlogs = [...blogs]
-
         const blogsByid = newBlogs.findIndex((b => b.id == idBlog));
         newBlogs[blogsByid].title = title
         newBlogs[blogsByid].body = body
 
-            // await blogs && blogs.map((x, index) =>{
-            //     if(x.id === idBlog) {
-            //         blogs[index] = {...x, title: title, body : body}
-            //     }
-            // })
-            //console.log(blogs)
-
-
             setBlog(newBlogs);
-            setListserve(newBlogs);
         }
     }
 
-    const handleDelete = async (idBlog) =>{
+    const handleDelete = (e) =>{
+        //console.log(e.target.id)
         let Executed = confirm('mau hapus??');
+        const idblog = e.target.id
         if(Executed == true){
-            let newblog = blogs.filter(({id}) =>  id != idBlog );
-            let newlist = datalistserve.filter(({id}) =>  id != idBlog );
+            let newblog = blogs.filter(({id}) =>  id != idblog );
             setBlog(newblog);
-            setListserve(newlist);
         }
     }
     return(
         <>  
-            <div style={{display : 'flex', justifyContent: 'center'}}>
-                <div>
-                    <h3>Serverside Rendering| jumlah : {datalistserve.length}</h3>
-                    <table style={{borderCollapse: 'collapse', width: '100%', border: '2px solid #ddd'}}>
-                    <thead>
-                        <tr style={{border: '1px solid #ddd'}}>
-                            <th>No</th>
-                            <th style={{border: '1px solid #ddd'}}>Judul</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        datalistserve && datalistserve.map((list, index) =>{
-                            return(
-                                <tr key={index} style={{border: '1px solid #ddd'}}>
-                                    <td><a>{index + 1}</a></td>
-                                    <td style={{border: '1px solid #ddd', height:'30px'}}>
-                                        <Link href={`/blogs/${list.id}`}>
-                                            <a>{list.title}</a>
-                                        </Link>
-                                    </td>
-                                </tr>
-                            )
-                        })
-
-                    }
-                    </tbody>
-                    </table>
-                </div>
-
-                <div>
-                   <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                        <h3>Clientside Rendering| jumlah: {blogs.length}</h3>
-                        <div style={{display: 'flex', justifyContent: 'center', alignItems:'center'}} >
-                            <button onClick={()=>handleInsert()} style={{color: 'green'}}>+</button>
+            <Layout>
+                <section className="bg-white border-b py-8">
+                    <div className="container mx-auto flex flex-wrap pt-10 pb-12">
+                        <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
+                            Title jumlah : {jumlah}
+                        </h2>
+                        <div className="w-full mb-4">
+                            <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t" />
                         </div>
-
+                        {
+                            blogs && blogs.map((data, index) =>{
+                                return (
+                                    <Card key={index} id={data.id} title={data.title} body={data.body} delete={handleDelete}/>
+                                )
+                            })
+                        }
                     </div>
-                    <table style={{borderCollapse: 'collapse', width: '100%', border: '2px solid #ddd'}}>
-                    <thead>
-                        <tr style={{border: '1px solid #ddd'}}>
-                            <th>No</th>
-                            <th style={{border: '1px solid #ddd'}}>Judul</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        blogs && blogs.map((data, index) =>{
-                            return(
-                                <tr key={index} style={{border: '1px solid #ddd'}}>
-                                    <td><a>{index + 1}</a></td>
-                                    <td style={{border: '1px solid #ddd', height:'30px' }}>
-                                        <Link href={`/blogs/${data.id}`}>
-                                            <a>{data.title}</a>
-                                        </Link>
-                                    </td>
-                                    <td>
-                                        <button onClick={()=>handleUpdate(data.id)} style={{color: 'blue', marginLeft:'5px', marginRight:'5px'}}>\</button>
-                                        <button onClick={()=>handleDelete(data.id)} style={{color: 'red', marginRight:'5px'}}>x</button>
-                                    </td>
-                                </tr>
-
-                            )
-                        })
-
-                    }
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-   
+                </section>
+            </Layout>
         </>
     )
 }
 
-export async function getServerSideProps(context){
-    const res = await fetch(`https://jsonplaceholder.typicode.com/posts`)
-    const datalist =  await res.json();
-    return { props : {datalist}}
-}
 export default Blogs;

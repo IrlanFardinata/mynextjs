@@ -15,7 +15,7 @@ const Hero = () => {
       </button>
     </div>
     <div className="w-full md:w-3/5 py-6 text-center">
-      <image className="w-full md:w-4/5 z-50"  alt="Landscape picture" src="https://raw.githubusercontent.com/tailwindtoolbox/Landing-Page/master/hero.png" />
+      <img className="w-full md:w-4/5 z-50"  alt="Landscape picture" src="https://raw.githubusercontent.com/tailwindtoolbox/Landing-Page/master/hero.png"/>
     </div>
   </div>
 </div>

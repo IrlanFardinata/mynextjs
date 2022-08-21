@@ -6,17 +6,17 @@ import Layouts from '@/layouts/MainLayout';
 const BlogDetail = ({data}) =>{
 
     const [detail, setDetail] = useState();
-    const id = useRouter().query;
+    // const id = useRouter().query;
 
-    useEffect(() =>{
-        ( async () =>{
-            const getData = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-            const data = await getData.json()
-            setDetail([data]);
-        }
-        )()
+    // useEffect(() =>{
+    //     ( async () =>{
+    //         const getData = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+    //         const data = await getData.json()
+    //         setDetail([data]);
+    //     }
+    //     )()
 
-    },[])
+    // },[])
     return(
         <>
             <Layouts>

@@ -6,7 +6,7 @@ import Layouts from '@/layouts/MainLayout';
 const BlogDetail = ({data}) =>{
 
     const [detail, setDetail] = useState();
-    const {id} = useRouter().query;
+    const id = useRouter().query;
 
     useEffect(() =>{
         ( async () =>{

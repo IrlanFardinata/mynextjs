@@ -35,7 +35,7 @@ const Form = ({blogs, setBlog, Blogid}) => {
         <>
             <form className="w-1/2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" for="title">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
                         Title
                     </label>
                     <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="Blogid" type="hidden" placeholder="Blogid"
@@ -45,7 +45,7 @@ const Form = ({blogs, setBlog, Blogid}) => {
                     value={title} onChange={(e) => setTitle(e.target.value)} />
                 </div>
                 <div className="mb-6">
-                    <label className="block text-gray-700 text-sm font-bold mb-2" for="deskripsi">
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="deskripsi">
                         Deskripsi
                     </label>
                     <textarea id="deskripsi" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

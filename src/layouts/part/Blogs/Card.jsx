@@ -29,7 +29,7 @@ const Card = (props) => {
                                 Detail
                             </a>
                         </Link>
-                        <button  className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onClick={()=>btnHandleAction({action :'edit', id:props.id})} >
+                        <button  className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onClick={()=>btnHandleAction({id:props.id, title:props.title, body:props.body, })} >
                             Edit
                         </button>
                         <button  className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onClick={()=>btnHandleAction({action :'delete', id:props.id})} >

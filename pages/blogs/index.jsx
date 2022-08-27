@@ -2,9 +2,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Layout from '@/layouts/MainLayout';
 import Card from '@/layouts/part/Blogs/Card';
+import Form from '@/layouts/part/Form/Form';
 
 const Blogs = ({datalist}) =>{
     const [blogs, setBlog] = useState([]);
+    const [Blogid, setBlogID] = useState('');
+
+
     const jumlah = blogs.length; 
 
     useEffect(() =>{
@@ -17,50 +21,80 @@ const Blogs = ({datalist}) =>{
 
     },[])
 
-    const fncHandleAction = async (e) =>{
-        let action = e.action
-        let idblog = e.id
+    // const fncHandleAction = async (e) =>{
+    //     let action = e.action
+    //     let idblog = e.id
 
-        if(action == 'add'){
-            let title = prompt('Title :');
-            let body = prompt('Body :');
+    //     if(action == 'add'){
+    //         let title = prompt('Title :');
+    //         let body = prompt('Body :');
 
-            let Executed = confirm('ingin menyimpan data yang sudah ditambahkan??');
-            if(Executed == true){
-                const newData = [{'userId': 11, 'id':blogs.length +1 , 'title' : title, 'body' : body}]
-                let newBlogInsert = blogs.concat(newData); 
-                setBlog(newBlogInsert);
-            }
-            // end add
+    //         let Executed = confirm('ingin menyimpan data yang sudah ditambahkan??');
+    //         if(Executed == true){
+    //             const newData = [{'userId': 11, 'id':blogs.length +1 , 'title' : title, 'body' : body}]
+    //             let newBlogInsert = blogs.concat(newData); 
+    //             setBlog(newBlogInsert);
+    //         }
+    //         // [{}]
+    //         // blogs = [...blog,{}]
 
-        }else if(action == 'edit'){
-            let getBlogID = await blogs.find(({id}) =>  id == idblog);
-            let title = prompt('Title :', getBlogID.title);
-            let body = prompt('Body :', getBlogID.body);
+    //         // end add
 
-            let Executed = confirm('ingin menyimpan data yang sudah diubah??');
-            if(Executed){
+    //     }else if(action == 'edit'){
+    //         let getBlogID = await blogs.find(({id}) =>  id == idblog);
+    //         let title = prompt('Title :', getBlogID.title);
+    //         let body = prompt('Body :', getBlogID.body);
 
-            const newBlogs = [...blogs]
-            const blogsByid = newBlogs.findIndex((b => b.id == idblog));
-            newBlogs[blogsByid].title = title
-            newBlogs[blogsByid].body = body
-                setBlog(newBlogs);
-            }
-            // end edit
+    //         let Executed = confirm('ingin menyimpan data yang sudah diubah??');
+    //         if(Executed){
 
-        }else if(action == 'delete'){
-            let Executed = confirm('mau hapus??');
-            if(Executed == true){
-                let newblog = blogs.filter(({id}) =>  id != idblog);
-                setBlog(newblog);
-            }
-            // end delete
-        }else{
-            console.log('None')
-        }
+    //         const newBlogs = [...blogs]
+    //         const blogsByid = newBlogs.findIndex((b => b.id == idblog));
+    //         newBlogs[blogsByid].title = title
+    //         newBlogs[blogsByid].body = body
+    //         setBlog(newBlogs);
+    //         }
+    //         // end edit
+
+    //     }else if(action == 'delete'){
+    //         let Executed = confirm('mau hapus??');
+    //         if(Executed == true){
+    //             let newblog = blogs.filter(({id}) =>  id != idblog);
+    //             setBlog(newblog);
+    //         }
+    //         // end delete
+    //     }else{
+    //         console.log('None')
+    //     }
         
+    // }
+
+    // const btnHandleSubmit = async (e) =>{
+    //     let title =  document.getElementById("title").value
+    //     let body =  document.getElementById("deskripsi").value
+    //     if(e.action == 'add'){
+    //         blogs = [{userId: 11, id:blogs.length +1 , title : title, body : body}, ...blogs]
+    //         setBlog(blogs);
+    //     }else if(e.action == 'edit'){
+    //         let getBlogID = await blogs.find(({id}) =>  id == e.id);
+    //         console.log(getBlogID);
+    //         document.getElementById("title").value = getBlogID.title;
+    //         document.getElementById("deskripsi").value = getBlogID.body;
+
+    //         const newBlogs = [...blogs]
+    //         const blogsByid = newBlogs.findIndex((b => b.id == e.id));
+    //         newBlogs[blogsByid].title = title
+    //         newBlogs[blogsByid].body = body
+    //         setBlog(newBlogs);
+
+
+    //     }
+    // }
+
+    const fncsetBlogID = (e) => {
+        setBlogID(e)
     }
+
     return(
         <>  
             <Layout>
@@ -70,18 +104,22 @@ const Blogs = ({datalist}) =>{
                             <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                                 Title jumlah : {jumlah}
                             </h2>
-                                <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onClick={()=>fncHandleAction({action :"add"})} >
-                                    Tambah
-                                </button>
+                            <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onClick={()=>fncHandleAction({action :"add"})} >
+                                Tambah
+                            </button>
                         </div>
-
                         <div className="w-full mb-4">
                             <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t" />
                         </div>
+
+                        <div className="w-full mb-4">
+                            <Form blogs={blogs} setBlog={setBlog} Blogid={Blogid} />
+                        </div>
+
                         {
                             blogs && blogs.map((data, index) =>{
                                 return (
-                                    <Card key={index} id={data.id} title={data.title} body={data.body} btnaction={fncHandleAction}/>
+                                    <Card key={index} id={data.id} title={data.title} body={data.body} btnaction={fncsetBlogID} />
                                 )
                             })
                         }

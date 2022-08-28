@@ -6,7 +6,9 @@ import Form from '@/layouts/part/Form/Form';
 
 const Blogs = ({datalist}) =>{
     const [blogs, setBlog] = useState([]);
-    const [Blogid, setBlogID] = useState('');
+    const [dtSubmit, setdtSubmit] = useState('');
+    const [formtitle, setFormtitle] = useState('Form Title');
+
 
 
     const jumlah = blogs.length; 
@@ -91,8 +93,9 @@ const Blogs = ({datalist}) =>{
     //     }
     // }
 
-    const fncsetBlogID = (e) => {
-        setBlogID(e)
+    const fncsetdtSubmit = (e) => {
+        setdtSubmit(e)
+        setFormtitle(e.formTitle)
     }
 
     return(
@@ -113,13 +116,24 @@ const Blogs = ({datalist}) =>{
                         </div>
 
                         <div className="w-full mb-4">
-                            <Form blogs={blogs} setBlog={setBlog} Blogid={Blogid} />
+                            <div className="w-1/2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                                <h3 className="text-2xl font-bold text-gray-800">
+                                    {formtitle}
+                                </h3>
+                                <div className="flex items-center justify-end">
+                                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" 
+                                        onClick={()=>fncsetdtSubmit({action :'add', formTitle: 'Form Add Blog'})} >
+                                            + Add
+                                    </button>
+                                </div>
+                                <Form blogs={blogs} setBlog={setBlog} dtSubmit={dtSubmit} />
+                            </div>
                         </div>
 
                         {
                             blogs && blogs.map((data, index) =>{
                                 return (
-                                    <Card key={index} id={data.id} title={data.title} body={data.body} btnaction={fncsetBlogID} />
+                                    <Card key={index} id={data.id} title={data.title} body={data.body} btnSubmit={fncsetdtSubmit} />
                                 )
                             })
                         }

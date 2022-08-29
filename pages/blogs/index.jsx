@@ -6,11 +6,8 @@ import Form from '@/layouts/part/Form/Form';
 
 const Blogs = ({datalist}) =>{
     const [blogs, setBlog] = useState([]);
-    const [dtSubmit, setdtSubmit] = useState('');
+    const [dtSubmit, setdtSubmit] = useState({});
     const [formtitle, setFormtitle] = useState('Form Title');
-
-
-
     const jumlah = blogs.length; 
 
     useEffect(() =>{
@@ -92,9 +89,19 @@ const Blogs = ({datalist}) =>{
 
     //     }
     // }
+    const fncDelete = (e) => {
+        if(e.action == 'delete'){
+            let Executed = confirm('mau hapus??');
+            if(Executed == true){
+                let newblog = blogs.filter(({id}) =>  id != e.id);
+                setBlog(newblog);
+            }
+        }
+    }
 
     const fncsetdtSubmit = (e) => {
         setdtSubmit(e)
+        fncDelete(e)
         setFormtitle(e.formTitle)
     }
 
@@ -120,13 +127,7 @@ const Blogs = ({datalist}) =>{
                                 <h3 className="text-2xl font-bold text-gray-800">
                                     {formtitle}
                                 </h3>
-                                <div className="flex items-center justify-end">
-                                    <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button" 
-                                        onClick={()=>fncsetdtSubmit({action :'add', formTitle: 'Form Add Blog'})} >
-                                            + Add
-                                    </button>
-                                </div>
-                                <Form blogs={blogs} setBlog={setBlog} dtSubmit={dtSubmit} />
+                                <Form blogs={blogs} setBlog={setBlog} dtSubmit={dtSubmit} setdtSubmit={setdtSubmit} />
                             </div>
                         </div>
 

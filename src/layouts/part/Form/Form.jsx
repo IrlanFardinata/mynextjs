@@ -1,41 +1,44 @@
-import Blogs from 'pages/blogs';
 import { useState, useEffect } from 'react';
-const Form = ({blogs, setBlog, dtSubmit }) => {
-    const [title, setTitle] = useState('');
-    const [body, setBody] = useState('');
+const initialValues = {
+    title : "",
+    body : ""
+}
+const Form = ({blogs, setBlog, dtSubmit, setdtSubmit }) => {
+    const [values, setValues] = useState(initialValues);
+
+    const handleInputChange = (e) => {
+        const {name, value } = e.target;
+        setValues({...values, [name]:value,})
+    }
+
+    useEffect(() => {
+        if(dtSubmit){
+            setValues({title : dtSubmit.title, body : dtSubmit.body})
+        }else{
+            setValues(initialValues)
+        }
+    }, [setValues, dtSubmit]);
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if(dtSubmit.action == 'add'){
-            const NewData = [...blogs, {'userId': 11, 'id':blogs.length +1 , 'title' : title, 'body' : body}]
+        if(dtSubmit.id){
+            const newBlogs = [...blogs]
+            const blogsByid = newBlogs.findIndex((b => b.id == dtSubmit.id));
+            newBlogs[blogsByid].title = values.title == "" ? dtSubmit.title : values.title
+            newBlogs[blogsByid].body = values.body == "" ? dtSubmit.body : values.body
+            setBlog(newBlogs);
+            setValues(initialValues)
+            setdtSubmit('')
+        }else{
+            const NewData = [...blogs, {'userId': 11, 'id':blogs.length +1 , 'title' : values.title, 'body' : values.body}]
             const sortDesc = [...NewData]
             sortDesc.sort((a, b) => (a.id > b.id ? -1 : 1))
             setBlog(sortDesc)
-        }else if(dtSubmit.action == 'edit'){
-            const newBlogs = [...blogs]
-            const blogsByid = newBlogs.findIndex((b => b.id == dtSubmit.id));
-            newBlogs[blogsByid].title = title == "" ? dtSubmit.title : title
-            newBlogs[blogsByid].body = body == "" ? dtSubmit.body : body
-            setBlog(newBlogs);
+            setValues(initialValues)
         }
-        setTitle('')
-        setBody('')
-
-        // if(dtSubmit.id){
-        //     const newBlogs = [...blogs]
-        //     const blogsByid = newBlogs.findIndex((b => b.id == dtSubmit.id));
-        //     newBlogs[blogsByid].title = title == "" ? dtSubmit.title : title
-        //     newBlogs[blogsByid].body = body == "" ? dtSubmit.body : body
-        //     setBlog(newBlogs);
-        // }else{
-        //     const NewData = [...blogs, {'userId': 11, 'id':blogs.length +1 , 'title' : title, 'body' : body}]
-        //     const sortDesc = [...NewData]
-        //     sortDesc.sort((a, b) => (a.id > b.id ? -1 : 1))
-        //     setBlog(sortDesc)
-        // }
-        // setTitle(' ')
-        // setBody(' ')
     }
+
+    console.log(values)
 
     return (
         <>
@@ -45,19 +48,19 @@ const Form = ({blogs, setBlog, dtSubmit }) => {
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="title">
                         Title
                     </label>
-                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" type="text" placeholder="Title"
-                    value={title == "" ? dtSubmit.title : title} onChange={(e) => setTitle(e.target.value)} />
+                    <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="title" name="title" type="text" placeholder="Title"
+                    value={values.title} onChange={handleInputChange} />
                 </div>
                 <div className="mb-6">
                     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="body">
                         Deskripsi
                     </label>
-                    <textarea id="deskripsi" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        name="content" rows="4" cols="20" placeholder="Tulis Deskripsi ..." value={body == "" ? dtSubmit.body : body} onChange={(e) => setBody(e.target.value)}>
+                    <textarea id="deskripsi" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
+                        name="body" rows="4" cols="20" placeholder="Tulis Deskripsi ..." value={values.body} onChange={handleInputChange}>
                     </textarea>
                 </div>
                 <div className="flex items-center justify-between">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" >
+                    <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" type="submit" >
                         Save
                     </button>
                 </div>

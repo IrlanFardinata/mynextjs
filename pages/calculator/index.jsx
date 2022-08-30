@@ -17,7 +17,7 @@ const Calculator = () =>{
                             </div>
                         </div>
                         <div className="w-full mb-4 flex justify-center">
-                            <div className="w-2/5 bg-fuchsia-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
+                            <div className="w-3/5 bg-fuchsia-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
                                 <div className='flex justify-center'>
                                     <div className="w-4/5 bg-white p-9">
                                         <div className='w-full mb-10'>
@@ -48,14 +48,14 @@ const Calculator = () =>{
                                                 <div className="mb-3">
                                                     <input type="number" className="form-control block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                                                         border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="input1" placeholder="Input Number 1"/>
+                                                    id="input1" placeholder="Input Number 1" value={0}/>
                                                 </div>
                                             </div>
                                             <div className="flex justify-center">
                                                 <div className="mb-3">
                                                     <input type="number" className="form-control block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
                                                         border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="input2" placeholder="Input Number 2"/>
+                                                    id="input2" placeholder="Input Number 2" value={0}/>
                                                 </div>
                                             </div>
                                         </div>

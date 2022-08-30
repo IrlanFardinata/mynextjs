@@ -38,8 +38,6 @@ const Form = ({blogs, setBlog, dtSubmit, setdtSubmit }) => {
         }
     }
 
-    console.log(values)
-
     return (
         <>
         {/* title == "" ? dtSubmit.title : title */}

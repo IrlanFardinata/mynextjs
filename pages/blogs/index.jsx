@@ -114,9 +114,6 @@ const Blogs = ({datalist}) =>{
                             <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
                                 Title jumlah : {jumlah}
                             </h2>
-                            <button className="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-4 py-4 px-4 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out" onClick={()=>fncHandleAction({action :"add"})} >
-                                Tambah
-                            </button>
                         </div>
                         <div className="w-full mb-4">
                             <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t" />

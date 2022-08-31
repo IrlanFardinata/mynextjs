@@ -37,7 +37,7 @@ const Form = ({blogs, setBlog, dtSubmit, setdtSubmit }) => {
             setValues(initialValues)
         }
     }
-
+    console.log(values)
     return (
         <>
         {/* title == "" ? dtSubmit.title : title */}

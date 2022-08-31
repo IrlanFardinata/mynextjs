@@ -1,7 +1,26 @@
 // sastra nababan
+
+import { useState, useEffect } from 'react';
 import Layout from '@/layouts/MainLayout';
+import CalInfo from '@/layouts/part/Calculator/CalInfo';
+import CalInput from '@/layouts/part/Calculator/CalInput';
+import CalBtn from '@/layouts/part/Calculator/CalBtn';
+const initialValues = {
+    input1 : Number(0),
+    input2 : Number(0),
+    hasil  : Number(0),
+}
 
 const Calculator = () =>{
+    const [dtInfo, setdtInfo] = useState('');
+    const [dtAksi, setdtAksi] = useState('');
+
+    const fncsetdtAksi = (e) => {
+        setdtAksi(e)
+        if(e == 'clear'){
+            setdtInfo(initialValues)
+        }
+    }
     return(
         <>
             <Layout>
@@ -20,121 +39,11 @@ const Calculator = () =>{
                             <div className="w-3/5 bg-fuchsia-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
                                 <div className='flex justify-center'>
                                     <div className="w-4/5 bg-white p-9">
-                                        <div className='w-full mb-10'>
-                                            <table className="border-solid border-2 border-slate-100 w-full text-black text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th className="border-solid border-2 border-slate-100 h-10">Input 1</th>
-                                                        <th className="border-solid border-2 border-slate-100 h-10">Aksi</th>
-                                                        <th className="border-solid border-2 border-slate-100 h-10">Input 2</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">0</td>
-                                                        <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">#</td>
-                                                        <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">0</td>
-
-                                                    </tr>
-                                                    <tr>
-                                                        <td colSpan={3} className="border-solid border-2 border-slate-100 h-20 text-6xl font-bold text-emerald-700" >0</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                            
-                                        <div className='flex justify-between'>
-                                            <div className="flex justify-center">
-                                                <div className="mb-3">
-                                                    <input type="number" className="form-control block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
-                                                        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="input1" placeholder="Input Number 1"/>
-                                                </div>
-                                            </div>
-                                            <div className="flex justify-center">
-                                                <div className="mb-3">
-                                                    <input type="number" className="form-control block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
-                                                        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="input2" placeholder="Input Number 2"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="flex items-center justify-around flex-wrap">
-                                            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                                                <div className="text-sm lg:flex-grow">
-                                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        +
-                                                    </button>
-                                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        -
-                                                    </button>
-
-                                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        *
-                                                    </button>
-
-                                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        /
-                                                    </button>
-                              
-                                                </div>
-                                                <div>
-                                                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        Clear
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <CalInfo dtInfo={dtInfo}/>
+                                        <CalInput setdtInfo={setdtInfo} dtAksi={dtAksi}/>
+                                        <CalBtn btnAction={fncsetdtAksi}/>
                                     </div>
                                 </div>
-                                {/* <div className="flex flex-col">
-                                    <div className=''>01</div>
-                                    <div className=''>
-                                        <div className='flex justify-around'>
-                                            <div className="flex justify-center">
-                                                <div className="mb-3">
-                                                    <input type="number" className="form-control block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
-                                                        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="input1" placeholder="Input Number 1"/>
-                                                </div>
-                                            </div>
-                                            <div className="flex justify-center">
-                                                <div className="mb-3">
-                                                    <input type="number" className="form-control block px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding
-                                                        border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                                                    id="input2" placeholder="Input Number 2"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className="flex items-center justify-around flex-wrap">
-                                            <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-                                                <div className="text-sm lg:flex-grow">
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        +
-                                                    </button>
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        -
-                                                    </button>
-
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        *
-                                                    </button>
-
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        /
-                                                    </button>
-                              
-                                                </div>
-                                                <div>
-                                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4">
-                                                        Clear
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> */}
                             </div>
                         </div>
                 </section>

@@ -13,7 +13,7 @@ const CalInfo = ({ values, opt, hasil}) => {
                     <tbody>
                         <tr>
                             <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">{values.input1}</td>
-                            <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">{opt}</td>
+                            <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">{opt.icon}</td>
                             <td className="border-solid border-2 border-slate-100 h-12 font-semibold text-3xl">{values.input2}</td>
 
                         </tr>

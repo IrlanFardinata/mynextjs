@@ -8,28 +8,28 @@ const CalBtn = (props) =>{
                 <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
                     <div className="text-sm lg:flex-grow">
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4"
-                         onClick={()=>btnHandleAction('tambah')} >
+                         onClick={()=>btnHandleAction({aksi :'tambah', icon: '+'})} >
                             +
                         </button>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4"
-                         onClick={()=>btnHandleAction('kurang')} >
+                         onClick={()=>btnHandleAction({aksi:'kurang', icon: '-'})} >
                             -
                         </button>
 
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4"
-                            onClick={()=>btnHandleAction('kali')} >
+                            onClick={()=>btnHandleAction({aksi:'kali', icon:'x'})} >
                             *
                         </button>
 
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4"
-                            onClick={()=>btnHandleAction('bagi')} >
+                            onClick={()=>btnHandleAction({aksi:'bagi', icon:'/'})} >
                             /
                         </button>
     
                     </div>
                     <div>
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full  mr-4"
-                            onClick={()=>btnHandleAction('clear')} >
+                            onClick={()=>btnHandleAction({aksi:'clear'})} >
                             Clear
                         </button>
                     </div>

@@ -12,7 +12,7 @@ const initialValues = {
 
 const Calculator = () =>{
     const [values, setValues] = useState(initialValues);
-    const [opt, setOpt] = useState('tambah');
+    const [opt, setOpt] = useState({aksi :'tambah', icon: '+'});
     const [hasil, setHasil] = useState(0);
 
     const btnHandleAction = (e) =>{
@@ -25,17 +25,17 @@ const Calculator = () =>{
         let hasil = 0
 
         if(opt){
-            if(opt == 'clear'){
+            if(opt.aksi == 'clear'){
                 setValues(initialValues)
-                setOpt('tambah')
+                setOpt({aksi :'tambah', icon: '+'})
 
-            }else if(opt == 'tambah'){
+            }else if(opt.aksi == 'tambah'){
                 hasil = val1 + val2
-            }else if(opt == 'kurang'){
+            }else if(opt.aksi == 'kurang'){
                 hasil = val1 - val2
-            }else if(opt == 'kali'){
+            }else if(opt.aksi == 'kali'){
                 hasil = val1 * val2
-            }else if(opt == 'bagi'){
+            }else if(opt.aksi == 'bagi'){
                 hasil = val1 / val2
             }
         }else{

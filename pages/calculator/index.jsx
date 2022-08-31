@@ -41,7 +41,8 @@ const Calculator = () =>{
         }else{
             hasil = val1 + val2
         }
-        if (Number.isNaN(hasil)) {
+        //pengalihan angkan NaN dan Infinity menjadi NOl
+        if (isNaN(hasil) || isFinite(hasil) == false) {
             hasil = 0;
         }
         setHasil(hasil)

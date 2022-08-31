@@ -7,20 +7,52 @@ import CalInput from '@/layouts/part/Calculator/CalInput';
 import CalBtn from '@/layouts/part/Calculator/CalBtn';
 const initialValues = {
     input1 : Number(0),
-    input2 : Number(0),
-    hasil  : Number(0),
+    input2 : Number(0)
 }
 
 const Calculator = () =>{
-    const [dtInfo, setdtInfo] = useState('');
-    const [dtAksi, setdtAksi] = useState('');
+    const [values, setValues] = useState(initialValues);
+    const [opt, setOpt] = useState('tambah');
+    const [hasil, setHasil] = useState(0);
 
-    const fncsetdtAksi = (e) => {
-        setdtAksi(e)
-        if(e == 'clear'){
-            setdtInfo(initialValues)
-        }
+    const btnHandleAction = (e) =>{
+        setOpt(e)
     }
+
+    const Execute = (val, opt) =>{
+        let val1 = Number(val.input1)
+        let val2 = Number(val.input2)
+        let hasil = 0
+
+        if(opt){
+            if(opt == 'clear'){
+                setValues(initialValues)
+                setOpt('tambah')
+
+            }else if(opt == 'tambah'){
+                hasil = val1 + val2
+            }else if(opt == 'kurang'){
+                hasil = val1 - val2
+            }else if(opt == 'kali'){
+                hasil = val1 * val2
+            }else if(opt == 'bagi'){
+                hasil = val1 / val2
+            }
+        }else{
+            hasil = val1 + val2
+        }
+        if (Number.isNaN(hasil)) {
+            hasil = 0;
+        }
+        setHasil(hasil)
+
+    }
+
+    useEffect(() => {
+       Execute(values, opt);
+
+    }, [values, opt]);
+
     return(
         <>
             <Layout>
@@ -39,9 +71,9 @@ const Calculator = () =>{
                             <div className="w-3/5 bg-fuchsia-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
                                 <div className='flex justify-center'>
                                     <div className="w-4/5 bg-white p-9">
-                                        <CalInfo dtInfo={dtInfo}/>
-                                        <CalInput setdtInfo={setdtInfo} dtAksi={dtAksi}/>
-                                        <CalBtn btnAction={fncsetdtAksi}/>
+                                        <CalInfo values={values} opt={opt} hasil={hasil}/>
+                                        <CalInput values={values} setValues={setValues}/>
+                                        <CalBtn btnAction={btnHandleAction}/>
                                     </div>
                                 </div>
                             </div>

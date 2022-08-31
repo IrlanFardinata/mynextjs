@@ -1,10 +1,9 @@
-// sastra nababan
-
 import { useState, useEffect } from 'react';
 import Layout from '@/layouts/MainLayout';
 import CalInfo from '@/layouts/part/Calculator/CalInfo';
 import CalInput from '@/layouts/part/Calculator/CalInput';
 import CalBtn from '@/layouts/part/Calculator/CalBtn';
+
 const initialValues = {
     input1 : Number(0),
     input2 : Number(0)
@@ -50,9 +49,16 @@ const Calculator = () =>{
     }
 
     useEffect(() => {
-       Execute(values, opt);
+        if(opt.aksi == 'clear'){
+            setValues(initialValues)
+            setOpt({aksi :'tambah', icon: '+'})
 
-    }, [values, opt]);
+
+        }else{
+            Execute(values, opt);
+        }
+    }, [values, opt, setValues]);
+    
 
     return(
         <>
@@ -73,7 +79,7 @@ const Calculator = () =>{
                                 <div className='flex justify-center'>
                                     <div className="w-4/5 bg-white p-9">
                                         <CalInfo values={values} opt={opt} hasil={hasil}/>
-                                        <CalInput values={values} setValues={setValues}/>
+                                        <CalInput values={values} setValues={setValues} opt={opt}/>
                                         <CalBtn btnAction={btnHandleAction}/>
                                     </div>
                                 </div>

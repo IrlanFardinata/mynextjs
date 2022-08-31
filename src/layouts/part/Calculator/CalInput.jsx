@@ -1,56 +1,11 @@
-import { useState, useEffect } from 'react';
-const initialValues = {
-    input1 : Number(0),
-    input2 : Number(0)
-}
-const CalInput = ({setdtInfo, dtAksi}) =>{
-    const [values, setValues] = useState(initialValues);
+
+const CalInput = ({values, setValues}) =>{
 
     const handleInputChange = (e) => {
         const {name, value } = e.target;
         setValues({...values, [name]:value,})
 
     }
-    const Executed = (e) => {
-        let dtInput1 = Number(values.input1)
-        let dtInput2 = Number(values.input2)
-        let hasil = 0
-        if(e){
-            if(e == 'tambah'){
-                hasil = dtInput1 + dtInput2
-    
-            }else if(e == 'kurang'){
-                hasil = dtInput1 - dtInput2
-    
-            }else if(e == 'kali'){
-                hasil = dtInput1 * dtInput2
-                
-            }else if(e == 'bagi'){
-                hasil = dtInput1 / dtInput2
-
-            }else if(e == 'clear'){
-                setValues(initialValues)
-                setdtInfo({input1 : 0, input2: 0, hasil :0, aksi:"#"})
-
-            }else{
-                // default tambah
-                hasil = dtInput1 + dtInput2
-
-            }
-        }else{
-            hasil = dtInput1 + dtInput2
-        }
-        setdtInfo({input1 : dtInput1, input2: dtInput2, hasil :hasil, aksi:e})
-    }
-
-    useEffect(() => {
-        Executed(dtAksi)
-
-    }, [setValues,setdtInfo, dtAksi]);
-
-
-    // console.log(values)
-    // console.log(dtAksi)
     return (
         <>
             <div className='flex justify-between'>

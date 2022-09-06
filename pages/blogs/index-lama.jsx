@@ -1,64 +1,71 @@
-import { useState, useEffect, createContext, useContext } from 'react';
-
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Layout from '@/layouts/MainLayout';
 import Card from '@/layouts/part/Blogs/Card';
 import Form from '@/layouts/part/Form/Form';
 
-import {BlogProvider} from '@/layouts/context/BlogsContext';
+const Blogs = ({datalist}) =>{
+    const [blogs, setBlog] = useState([]);
+    const [dtSubmit, setdtSubmit] = useState({});
+    const [formtitle, setFormtitle] = useState('Form Title');
+    const jumlah = blogs.length; 
 
-const Blogs = () =>{
-    
-    // const [blogs, setBlog] = useState([]);
-    // const [dtSubmit, setdtSubmit] = useState({});
-    // const [formtitle, setFormtitle] = useState('Form Title');
-    // const jumlah = blogs.length; 
+    useEffect(() =>{
+        ( async () =>{
+            const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
+            const data = await getData.json()
+            setBlog(data);
+        }
+        )()
 
-    // useEffect(() =>{
-    //     ( async () =>{
-    //         const getData = await fetch('https://jsonplaceholder.typicode.com/posts');
-    //         const data = await getData.json()
-    //         setBlog(data);
-    //     }
-    //     )()
+    },[])
 
-    // },[])
+    const fncDelete = (e) => {
+        if(e.action == 'delete'){
+            let Executed = confirm('mau hapus??');
+            if(Executed == true){
+                let newblog = blogs.filter(({id}) =>  id != e.id);
+                setBlog(newblog);
+            }
+        }
+    }
 
-    // const fncDelete = (e) => {
-    //     if(e.action == 'delete'){
-    //         let Executed = confirm('mau hapus??');
-    //         if(Executed == true){
-    //             let newblog = blogs.filter(({id}) =>  id != e.id);
-    //             setBlog(newblog);
-    //         }
-    //     }
-    // }
-
-    // const fncsetdtSubmit = (e) => {
-    //     setdtSubmit(e)
-    //     fncDelete(e)
-    // }
+    const fncsetdtSubmit = (e) => {
+        setdtSubmit(e)
+        fncDelete(e)
+        setFormtitle(e.formTitle)
+    }
 
     return(
-          
-        <BlogProvider>
+        <>  
             <Layout>
                 <section className="bg-white border-b py-8">
                     <div className="container mx-auto flex flex-wrap pt-10 pb-12">
                         <div className='flex w-full'>
                             <h2 className="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-                                Title jumlah : 
+                                Title jumlah : {jumlah}
                             </h2>
+                        </div>
+                        <div className="w-full mb-4">
+                            <div className="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t" />
                         </div>
 
                         <div className="w-full mb-4">
                             <div className="w-1/2 bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                                 <h3 className="text-2xl font-bold text-gray-800">
+                                    {formtitle}
                                 </h3>
-                                <Form  />
+                                <Form blogs={blogs} setBlog={setBlog} dtSubmit={dtSubmit} setdtSubmit={setdtSubmit} />
                             </div>
                         </div>
-                            <Card  />
+
+                        {
+                            blogs && blogs.map((data, index) =>{
+                                return (
+                                    <Card key={index} id={data.id} title={data.title} body={data.body} btnSubmit={fncsetdtSubmit} />
+                                )
+                            })
+                        }
                     </div>
                 </section>
                 <svg className="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
@@ -77,9 +84,8 @@ const Blogs = () =>{
                     </g>
                     </g>
                 </svg>
-
             </Layout>
-        </BlogProvider>
+        </>
     )
 }
 

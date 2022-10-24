@@ -2,7 +2,9 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "@/layouts/*": ["src/layouts/*"]
+            "@/layouts/*": ["src/layouts/*"],
+            "@/redux/*": ["src/redux/*"]
+
         }
     }
 }
